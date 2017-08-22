@@ -27,9 +27,8 @@ export class LoginComponent implements OnInit {
         let current_user = localStorage.getItem(SystemConstants.CURRENT_USER);
         if (current_user) {
           this._router.navigate([UrlConstants.HOME]);
-          this._notificationService.printSuccessMessage('Login success!');
-        } else {
-          this._notificationService.printErrorMessage("Invalid user!");
+        }
+        else {
           this.loading = false;
         }
       }, error => {

@@ -1,0 +1,46 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRouteSnapshot, ActivatedRoute, Params, Router } from '@angular/router';
+import { NotificationService } from '../../shared/services/notification.service';
+import { DataService } from '../../shared/services/data.service';
+import { UrlConstants } from '../../shared/common/url.constants';
+import { UtilityService } from '../../shared/services/utility.service';
+import { MessageConstants } from '../../shared/common/message.constants';
+@Component({
+  selector: 'app-confirm-account',
+  templateUrl: './confirm-account.component.html'
+})
+export class ConfirmAccountComponent implements OnInit {
+  loading: boolean = true;
+  confirm_token: string = '';
+
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _notificationService: NotificationService,
+    private _dataService: DataService,
+    private _utilityService: UtilityService
+  ) { }
+
+  ngOnInit() {
+    this._activatedRoute.params.subscribe((params: Params) => {
+      this.confirm_token = params['confirm_token'];
+      console.log(this.confirm_token);
+    });
+    this._dataService.getUnAuthorticate('/' + this.confirm_token).subscribe(data => {
+      if (data.status == 201) {
+        this._notificationService.printSuccessMessage(data.message);
+        this._utilityService.navigate(UrlConstants.LOGIN);
+      }
+      else if (data.status == 123) {
+        this._notificationService.printErrorMessage(data.message);
+      }
+    }, error => {
+      this._notificationService.printErrorMessage(MessageConstants.SYSTEM_ERROR_MSG);
+      this.loading = false;
+    });
+  }
+
+
+
+
+
+}

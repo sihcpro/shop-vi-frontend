@@ -27,10 +27,20 @@ export class DataService {
       .map(this.extractData);
   }
 
+  getUnAuthorticate = (url: string) => {
+    return this._http.get(SystemConstants.BASE_API + url)
+      .map(this.extractData);
+  }
+
   post = (url: string, data?: any) => {
     this.headers.delete('Authorization');
     this.headers.append('Authorization', 'Bearer' + this._authenService.getLoggedUser().auth_token);
-    return this._http.post(SystemConstants.BASE_API + url, data, { headers: this.headers })
+    return this._http.post(SystemConstants.BASE_API + url, data)
+      .map(this.extractData);
+  }
+
+  postUnAuthorticate = (url: string, data?: any) => {
+    return this._http.post(SystemConstants.BASE_API + url, data)
       .map(this.extractData);
   }
 
