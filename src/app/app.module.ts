@@ -10,7 +10,8 @@ import { MainComponent } from './main/main.component';
 import { AuthGuard } from './shared/guard/auth.guard';
 import {
   HeaderComponent,
-  FooterComponent
+  FooterComponent,
+  AsideComponent
 } from './shared';
 
 @NgModule({

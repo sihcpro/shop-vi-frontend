@@ -2708,7 +2708,7 @@ option {
 .form-row .input[type="tel"],
 .form-row .input[type="number"] {
     width: 100%;
-    padding: 10px 10px 10px 128px;
+    padding: 10px 10px 10px 95px;
     margin-bottom: 6px;
 }
 

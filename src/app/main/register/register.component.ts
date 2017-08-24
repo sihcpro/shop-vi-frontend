@@ -34,6 +34,8 @@ export class RegisterComponent implements OnInit {
       password_confirmation: this.model.confirmPassword
     };
     this._dataService.postUnAuthorticate('/register', data).subscribe(data => {
+      console.log(data.status);
+      
       if (data.status === 201) {
         this._notificationService.printSuccessMessage(data.message);
         this.loading = false;

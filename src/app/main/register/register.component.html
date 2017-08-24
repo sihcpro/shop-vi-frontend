@@ -20,7 +20,7 @@
             <label class="lebel-abs">Last name <strong class="red">*</strong></label>
             <input type="text" class="input namefild" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required>
             <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)" class="error-input red">
-              <span [hidden]="!lastName.errors.email">Last name can't blank!</span>
+              <span [hidden]="lastName.errors.email">Last name can't blank!</span>
             </div>
           </div>
 
@@ -42,7 +42,7 @@
           </div>
 
           <div class="form-row">
-            <label class="lebel-abs">Confirm Password <strong class="red">*</strong></label>
+            <label class="lebel-abs">RePassword <strong class="red">*</strong></label>
             <input type="password" pattern="{{model.password}}" class="input cpass" name="confirmPassword" [(ngModel)]="model.confirmPassword"
               #confirmPassword="ngModel" required>
             <div *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)" class="error-input red">

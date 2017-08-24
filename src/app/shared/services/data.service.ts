@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { AuthenService } from './authen.service';
 import { SystemConstants } from '../common/system.constants';
@@ -21,9 +21,7 @@ export class DataService {
   ) { }
 
   get = (url: string) => {
-    this.headers.delete('Authorization');
-    this.headers.append('Authorization', "Bearer" + this._authenService.getLoggedUser().auth_token);
-    return this._http.get(SystemConstants.BASE_API + url, { headers: this.headers })
+    return this._http.get(SystemConstants.BASE_API + url, this.jwt())
       .map(this.extractData);
   }
 
@@ -33,9 +31,7 @@ export class DataService {
   }
 
   post = (url: string, data?: any) => {
-    this.headers.delete('Authorization');
-    this.headers.append('Authorization', 'Bearer' + this._authenService.getLoggedUser().auth_token);
-    return this._http.post(SystemConstants.BASE_API + url, data)
+    return this._http.post(SystemConstants.BASE_API + url, data, this.jwt())
       .map(this.extractData);
   }
 
@@ -45,23 +41,17 @@ export class DataService {
   }
 
   put = (url: string, data?: any) => {
-    this.headers.delete('Authorization');
-    this.headers.append('Authorization', 'Bearer' + this._authenService.getLoggedUser().auth_token);
-    return this._http.put(SystemConstants.BASE_API + url, data, { headers: this.headers })
+    return this._http.put(SystemConstants.BASE_API + url, data, this.jwt())
       .map(this.extractData);
   }
 
   delete = (url: string, key: string, id: string) => {
-    this.headers.delete('Authorization');
-    this.headers.append('Authorization', 'Bearer' + this._authenService.getLoggedUser().auth_token);
-    return this._http.delete(SystemConstants.BASE_API + url + "/?" + key + "=" + id, { headers: this.headers })
+    return this._http.delete(SystemConstants.BASE_API + url + "/?" + key + "=" + id, this.jwt())
       .map(this.extractData);
   }
 
   postFile = (url: string, data?: any) => {
-    let newHeader = new Headers();
-    newHeader.append('Authorization', 'Bearer' + this._authenService.getLoggedUser().auth_token);
-    return this._http.post(SystemConstants.BASE_API + url, data, { headers: newHeader })
+    return this._http.post(SystemConstants.BASE_API + url, data, this.jwt())
       .map(this.extractData);
   }
 
@@ -80,6 +70,14 @@ export class DataService {
         error.status ? `${error.status}` : 'System Error!';
       this._notificationService.printErrorMessage(errMsg);
       return Observable.throw(errMsg);
+    }
+  }
+
+  private jwt() {
+    let currentUser = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
+    if (currentUser && currentUser.auth_token) {
+      let headers = new Headers({ 'auth-token': currentUser.auth_token });
+      return new RequestOptions({ headers: headers });
     }
   }
 }
