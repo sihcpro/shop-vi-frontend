@@ -29,9 +29,9 @@ export class NotificationService {
       // notifier defaults
       notifier: {
         // auto-dismiss wait time (in seconds)  
-        delay: 5,
+        delay: 7,
         // default position
-        position: 'bottom-right',
+        position: 'right-bottom',
         // adds a close button to notifier messages
         closeButton: false
       },
@@ -64,6 +64,10 @@ export class NotificationService {
 
   printErrorMessage = (message: string) => {
     this._notifier.error(message);
+  }
+
+  printWarningMessage = (message: string) => {
+    this._notifier.warning(message);
   }
 
   printConfirmationDialog = (message: string, okCallBack: () => any) => {

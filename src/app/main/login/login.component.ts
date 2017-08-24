@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   model: any = {}
   loading: boolean = false;
   returnUrl: string;
+  currentUser: any = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
   constructor(
     private _authenService: AuthenService,
     private _notificationService: NotificationService,
@@ -18,18 +19,21 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (this.currentUser && this.currentUser.auth_token) {
+      this._router.navigate([UrlConstants.HOME]);
+    }
+    console.log(this.currentUser);
   }
 
   login = () => {
     this.loading = true;
     this._authenService.login(this.model.email, this.model.password)
       .subscribe(data => {
-        let current_user = localStorage.getItem(SystemConstants.CURRENT_USER);
+        let current_user = this._authenService.getLoggedUser();
         if (current_user) {
           this._router.navigate([UrlConstants.HOME]);
-          this._notificationService.printSuccessMessage('Login success!');
-        } else {
-          this._notificationService.printErrorMessage("Invalid user!");
+        }
+        else {
           this.loading = false;
         }
       }, error => {

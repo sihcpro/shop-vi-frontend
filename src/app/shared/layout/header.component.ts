@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngDoCheck() {
-    this.current_user = JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
+    this.current_user = this._uthenService.getLoggedUser();
   }
 
   logout = () => {

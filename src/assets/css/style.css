@@ -2407,6 +2407,16 @@ option {
     padding-top: 30px;
 }
 
+.selectfild {
+    width: 100%;
+    padding: 10px 10px 10px 100px;
+    background: #fff;
+    border: 1px solid #cccccc;
+    font-size: 14px;
+    border-radius: 10px;
+    margin-left: 0px;
+}
+
 
 /* TAGS*/
 
@@ -2698,18 +2708,24 @@ option {
 .form-row .input[type="tel"],
 .form-row .input[type="number"] {
     width: 100%;
-    padding: 10px 10px 10px 100px;
+    padding: 10px 10px 10px 95px;
+    margin-bottom: 6px;
 }
 
+.error-input {
+    padding: 10px 20px;
+    font-style: italic;
+}
 
 /* 
 .form-row .input[type="password"] {
     padding-left: 120px;
 } */
 
-.form-row .input[type="password"].cpass {
-    padding-left: 160px;
-}
+
+/* .form-row .input[type="password"].cpass {
+    padding-left: 140px;
+} */
 
 .form-row .lebel-abs {
     left: 20px;
