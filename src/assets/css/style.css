@@ -1491,7 +1491,9 @@ ul.dropdown-menu>li>a:hover {
     font-size: 16px;
     text-transform: uppercase;
 }
-
+.child-categories ul li{
+    margin: 8px;
+}
 
 /*!~~~~~~~~~~~~ SPECIAL DEAL ~~~~~~~~~~~~~*/
 

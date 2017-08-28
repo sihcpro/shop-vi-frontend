@@ -3,42 +3,20 @@
     <h3 class="title">
       Categories
     </h3>
-    <ul>
+    <ul *ngFor="let category of categories" id="left-menu">
       <li>
-        <a href="#">
-              Men
-            </a>
-      </li>
-      <li>
-        <a href="#">
-              Women
-            </a>
-      </li>
-      <li>
-        <a href="#">
-              Salon
-            </a>
-      </li>
-      <li>
-        <a href="#">
-              New Trend
-            </a>
-      </li>
-      <li>
-        <a href="#">
-              Living room
-            </a>
-      </li>
-      <li>
-        <a href="#">
-              Bed room
-            </a>
+        <a href="#"><strong>{{category.name}}</strong></a>
+        <span *ngIf="category.child_categories.size != 0" class="child-categories">
+          <ul *ngFor="let child of category.child_categories">
+            <li><a href="">{{child.name}}</a></li>
+          </ul>
+        </span>
       </li>
     </ul>
   </div>
   <div class="clearfix">
   </div>
-  
+
   <div class="clearfix">
   </div>
   <div class="price-filter leftbar">
